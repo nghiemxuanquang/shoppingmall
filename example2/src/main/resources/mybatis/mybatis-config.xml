@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd" >
+
+
+<configuration>
+	<typeAliases>
+		
+		<typeAlias alias="empRole" type="com.exp.model.Emp_Roles"/>
+		<typeAlias alias="person" type="com.exp.model.Person"/>
+		<typeAlias alias="employee" type="com.exp.model.Employee"/>
+		<typeAlias alias="customer" type="com.exp.model.Customer"/>
+    </typeAliases>
+    <mappers>  
+      
+       <mapper resource="/mybatis/Emp_RolesMapper.xml"/> 
+       <mapper resource="/mybatis/PersonMapper.xml"/>
+       <mapper resource="/mybatis/EmployeeMapper.xml"/>
+       <mapper resource="/mybatis/CustomerMapper.xml"/>
+  
+    </mappers>
+  
+    
+</configuration>
