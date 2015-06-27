@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="CustomerControlMapper">
+
+<resultMap id="CustomerSelectMap" type="customer">
+		<result property="customer_id" column="Cus_id" jdbcType="INTEGER" />
+  		<result property="person_id" column="Person_id" jdbcType="INTEGER" />
+  		<result property="lasted_login" column="lasted_login" jdbcType="DATE" />
+  		<result property="reg_date" column="reg_date" jdbcType="DATE" />
+  	</resultMap>
+  	
+	<select id="getCustomerList" resultMap="CustomerSelectMap">
+  		SELECT Cus_id,Person_id,reg_date FROM customer
+  	</select> 
+  	<!-- 
+  	<select id="getCustomerList1" resultType="hashmap">
+ 		SELECT DISTINCT emp.Emp_id employee_id,role.Position position,person.Name name,person.Phone phone
+		FROM employee as emp,person as person , emp_roles as role
+		WHERE emp.Person_id = person.Person_id 
+		AND emp.Role_id= role.Role_id;
+  	</select>
+  	
+  	 -->
+  	 <select id="getCustomerList2" resultType="hashmap">
+  	 	SELECT DISTINCT cust.Cus_id customer_id,cust.Person_id person_id,per.Name name,per.Phone phone,
+  	 	per.Address address,per.ID_No id_no,per.Email email,
+  	 	per.Birth birth,per.Gender gender,per.Username username, per.Password password,cust.reg_date register_date
+		FROM customer as cust, person as per
+		WHERE cust.Person_id = per.Person_id;  	 	
+  	 </select>
+	
+  	
+  	<insert id="insertCustomer" parameterType="customer">
+  		INSERT INTO customer (Person_id,reg_date)
+  		VALUES(#{person_id},CURDATE())
+  	</insert>
+  	<insert id="registerCustomer" parameterType="customer">
+  		INSERT INTO customer (Person_id,reg_date)
+  		VALUES(#{person_id},CURDATE())
+  	</insert>
+  	
+  	<select id="selectOneCustomer" parameterType="int" resultMap="CustomerSelectMap">
+  		SELECT  Emp_id,Role_id,Person_id
+  		FROM employee
+  		WHERE Emp_id=#{emp_id}
+  	</select>
+ 	
+ 	<update id="modifyLastedLogin" parameterType="customer">
+ 		UPDATE employee SET Role_id=#{role_id}
+ 		WHERE Emp_id=#{emp_id}
+ 	</update>
+ 	
+ 	<delete id="deleteCustomer" parameterType="customer">
+ 		DELETE FROM customer
+ 		WHERE Cus_id=#{customer_id}
+ 	</delete>
+ 	<delete id="deleteCustomerByPersonID" parameterType="int">
+ 		DELETE FROM customer
+ 		WHERE Person_id=#{person_id}
+ 	</delete>
+  	
+ 
+</mapper>

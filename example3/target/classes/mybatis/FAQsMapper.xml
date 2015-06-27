@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="FAQsControlMapper">
+
+<resultMap id="FAQSelectMap" type="faqs">
+		<result property="faqs_id" column="FAQs_id" jdbcType="INTEGER" />
+  		<result property="question" column="Question" jdbcType="VARCHAR" />
+  		<result property="answer" column="Answer" jdbcType="VARCHAR"/>
+  		
+  
+  	</resultMap>
+  	
+	<select id="getFAQList" resultMap="FAQSelectMap">
+  		SELECT FAQs_id,Question,Answer FROM faqs 
+  	</select>
+  	
+  	<insert id="insertFAQ" parameterType="faqs">
+  		INSERT INTO faqs (Question,Answer)
+  		VALUES(#{question},#{answer})
+  	</insert>
+  	
+  	<select id="selectOneFAQ" parameterType="int" resultMap="FAQSelectMap">
+  		SELECT FAQs_id,Question,Answer 
+  		FROM faqs
+  		WHERE FAQs_id=#{value}
+  	</select>
+ 	
+ 	<update id="modifyFAQ" parameterType="faqs">
+ 		UPDATE faqs SET Question=#{question},Answer=#{answer}
+ 		WHERE FAQs_id=#{faqs_id}
+ 	</update>
+ 	
+ 	<delete id="deleteFAQ" parameterType="faqs">
+ 		DELETE FROM faqs
+ 		WHERE FAQs_id=#{faqs_id}
+ 	</delete>
+  	
+ 
+</mapper>
