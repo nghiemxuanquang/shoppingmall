@@ -1,0 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/includes/taglibs.jsp"%>    
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+Shopping Home - <decorator:title default="Admin!" />
+</title>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/toTop.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/shophomepage.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/lib/font-awesome-4.3.0/css/font-awesome.min.css">
+<script src="${pageContext.request.contextPath}/resources/lib/jquery/1.11.3/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/lib/bootstrap/js/bootstrap.min.js"></script>
+
+<script src="${pageContext.request.contextPath}/resources/lib/jquery/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.dataTables.css">
+
+<script src="//cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+
+
+</head>
+<body class="container">
+      <div class="col-md-12">
+      	<%@ include file="/includes/headerAdmin.jsp"%>
+      	  
+      </div>
+      <div id="content" class="col-md-12">
+         <decorator:body />
+      </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="PersonControlMapper">
+
+<resultMap id="PersonSelectMap" type="person">
+		<result property="person_id" column="Person_id" jdbcType="INTEGER" />
+  		<result property="name" column="Name" jdbcType="VARCHAR" />
+  		<result property="phone" column="Phone" jdbcType="VARCHAR" />
+  		<result property="ID_no" column="ID_No" jdbcType="VARCHAR" />
+  		<result property="email" column="Email" jdbcType="VARCHAR" />
+  		<result property="address" column="Address" jdbcType="VARCHAR" />
+  		<result property="birth" column="Birth" jdbcType="DATE" />
+  		<result property="gender" column="Gender" jdbcType="INTEGER" />
+  		<result property="username" column="Username" jdbcType="VARCHAR" />
+  		<result property="password" column="Password" jdbcType="VARCHAR" />
+  		
+  
+  	</resultMap>
+  	
+<!-- 	<select id="getPersonList" resultMap="PersonSelectMap">
+  		SELECT Person_id,Name,Phone,ID_No,Email,Address,Birth,Gender,Username,Password FROM person 
+  	</select> -->
+  	
+  	<select id="getPersonList"  resultMap="PersonSelectMap">
+  		SELECT Person_id,Name,Phone,ID_No,Email,Address,Birth,Gender,Username,Password FROM person 
+  	</select>
+  	
+  	<select id="getPersonDetailByID" parameterType="int" resultMap="PersonSelectMap" >
+  		SELECT Person_id,Name,Phone,ID_No,Email,Address,Birth,Gender,Username,Password FROM person 
+  		WHERE Person_id=#{person_id}
+  	</select>
+  	
+  	<select id="getPersonIDbyPersonName" parameterType="string" resultMap="PersonSelectMap" >
+  		SELECT Person_id FROM person
+  		WHERE Name=#{name}
+  	</select>
+  	
+  	<insert id="insertPerson" parameterType="person">
+  		INSERT INTO person (Name,Phone,ID_No,Email,Address,Birth,Gender,Username,Password)
+  		VALUES(#{name},#{phone},#{ID_no},#{email},#{address},#{birth},#{gender},#{username},#{password})
+  	</insert>
+  	
+ 	<update id="modifyPerson" parameterType="person">
+ 		UPDATE person SET Name=#{name},Phone=#{phone},ID_No=#{ID_no},Email=#{email},Address=#{address},Birth=#{birth},Gender=#{gender},Username=#{username},Password=#{password}
+ 		WHERE Person_id=#{person_id}
+ 	</update>
+ 	
+ 	<delete id="deletePerson" parameterType="person">
+ 		DELETE FROM person
+ 		WHERE Person_id=#{person_id}
+ 	</delete>
+  	
+ 
+</mapper>

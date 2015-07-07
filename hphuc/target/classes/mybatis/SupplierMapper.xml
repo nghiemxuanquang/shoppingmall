@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="SupplierControlMapper">
+
+<resultMap id="SupplierSelectMap" type="supplier">
+		<result property="supplier_id" column="Supplier_id" jdbcType="INTEGER" />
+  		<result property="supplier_name" column="Supplier_name" jdbcType="VARCHAR" />
+  		<result property="supplier_address" column="Supplier_address" jdbcType="VARCHAR"/>
+  		<result property="supplier_tel" column="Supplier_tel" jdbcType="VARCHAR"/>
+</resultMap>
+  	
+	<select id="getSupplierList" resultMap="SupplierSelectMap">
+  		SELECT Supplier_id,Supplier_name,Supplier_address,Supplier_tel FROM supplier
+  	</select>
+  	<select id="selectOneSupplier" parameterType="int" resultMap="SupplierSelectMap">
+  		SELECT Supplier_id,Supplier_name,Supplier_address,Supplier_tel 
+  		FROM supplier
+  		WHERE Supplier_id=#{value}
+  	</select>
+  	
+  	<insert id="insertSupplier" parameterType="supplier">
+  		INSERT INTO supplier (Supplier_name,Supplier_address,Supplier_tel)
+  		VALUES(#{supplier_name},#{supplier_address},#{supplier_tel})
+  	</insert>
+  	 	
+ 	<update id="modifySupplier" parameterType="supplier">
+ 		UPDATE supplier SET Supplier_name=#{supplier_name},Supplier_address=#{supplier_address},Supplier_tel=#{supplier_tel}
+ 		WHERE Supplier_id=#{supplier_id}
+ 	</update>
+ 
+ 	
+ 	<delete id="deleteSupplier" parameterType="supplier">
+ 		DELETE FROM supplier
+ 		WHERE Supplier_id=#{supplier_id}
+ 	</delete>
+  	
+ 
+</mapper>

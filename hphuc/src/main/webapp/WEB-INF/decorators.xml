@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<decorators>
+	
+	
+	 <decorator name="main" webapp="/decorators" page="/decorators/main.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+     <decorator name="admin" webapp="/decorators" page="/decorators/adminPage.jsp">
+        <pattern>/admin/*</pattern>
+    </decorator>
+</decorators>
