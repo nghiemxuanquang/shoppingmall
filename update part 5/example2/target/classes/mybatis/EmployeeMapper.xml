@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="EmployeeControlMapper">
+
+<resultMap id="EmployeeSelectMap" type="employee">
+		<result property="employee_id" column="Emp_id" jdbcType="INTEGER" />
+  		<result property="role_id" column="Role_id" jdbcType="INTEGER" />
+  		<result property="person_id" column="Person_id" jdbcType="INTEGER" />
+  		<result property="create_date" column="Create_date" jdbcType="DATE"/>
+  
+  	</resultMap>
+  	
+	<select id="getEmpList" resultMap="EmployeeSelectMap">
+  		SELECT Emp_id,Role_id,Person_id FROM employee 
+  	</select>
+  	
+  	 <select id="getEmployeeList2" resultType="hashmap">
+  	SELECT DISTINCT emp.Emp_id emp_id,emp.Person_id person_id,role.Position position,person.Name name,person.Phone phone,
+  		person.Address address,person.ID_No id_no,person.Email email,
+		person.Birth birth,person.Gender gender,person.Username username, person.Password password
+		FROM employee as emp,person as person , emp_roles as role
+		WHERE emp.Person_id = person.Person_id 
+		AND emp.Role_id= role.Role_id;	
+  	 </select>
+  	
+  	
+  	<insert id="insertEmp" parameterType="employee">
+  		INSERT INTO employee (Role_id,Person_id,Create_date)
+  		VALUES(#{role_id},#{person_id},CURDATE())
+  	</insert>
+  	
+  	<select id="selectOneEmp" parameterType="int" resultMap="EmployeeSelectMap">
+  		SELECT  Emp_id,Role_id,Person_id
+  		FROM employee
+  		WHERE Emp_id=#{employee_id}
+  	</select>
+ 	
+ 	<update id="modifyRoleOfEmp" parameterType="employee">
+ 		UPDATE employee SET Role_id=#{role_id}
+ 		WHERE Emp_id=#{employee_id}
+ 	</update>
+ 	
+ 	<delete id="deleteEmp" parameterType="employee">
+ 		DELETE FROM employee
+ 		WHERE Emp_id=#{employee_id}
+ 	</delete>
+  	
+ 
+</mapper>

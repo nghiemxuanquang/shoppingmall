@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="ProductImageControlMapper">
+
+<resultMap id="ProductImageSelectMap" type="product_image">
+		<result property="image_id" column="Image_id" jdbcType="INTEGER" />
+  		<result property="product_id" column="Product_id" jdbcType="INTEGER" />
+  		<result property="image_url" column="Image_url" jdbcType="VARCHAR" />
+  	</resultMap>
+  	
+	<select id="getImageList" resultMap="ProductImageSelectMap">
+  		SELECT Image_id,Product_id,Image_url FROM product_image
+  	</select> 	 	 
+  	<select id="getImageListByProductID" parameterType="int" resultMap="ProductImageSelectMap">
+  		SELECT Image_id,Product_id,Image_url 
+  		FROM product_image
+  		WHERE Product_id = #{product_id}
+  	</select>	
+  	
+  	<insert id="insertImage" parameterType="product_image">
+  		INSERT INTO product_image (Product_id,Image_url)
+  		VALUES(#{product_id},#{image_url})
+  	</insert>
+  	
+  	<select id="selectImageByProductID" parameterType="int" resultMap="ProductImageSelectMap">
+  		SELECT  Image_id,Product_id,Image_url
+  		FROM product_image
+  		WHERE Product_id=#{product_id}
+  	</select>
+ 	
+ 	<update id="modifyProductImage" parameterType="product_image">
+ 		UPDATE product_image SET Image_url=#{image_url}
+ 		WHERE Product_id=#{product_id}
+ 	</update>
+ 	
+ 	<delete id="deleteImageByProductID" parameterType="product_image">
+ 		DELETE FROM product_image
+ 		WHERE Product_id=#{product_id}
+ 	</delete>
+ 	<delete id="delteImageByImageID" parameterType="product_image">
+ 		DELETE FROM product_image
+ 		WHERE Image_id = #{image_id}
+ 	</delete>
+  	
+ 
+</mapper>

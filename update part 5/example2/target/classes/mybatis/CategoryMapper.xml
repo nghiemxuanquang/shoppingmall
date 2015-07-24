@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="CategoryControlMapper">
+
+<resultMap id="CateSelectMap" type="category">
+		<result property="category_id" column="Cate_id" jdbcType="INTEGER" />
+  		<result property="category_name" column="Cate_name" jdbcType="VARCHAR" />
+  		<result property="parent_id" column="Parent_id" jdbcType="INTEGER"/>
+  		
+  
+  	</resultMap>
+  	
+	<select id="getCateList" resultMap="CateSelectMap">
+  		SELECT Cate_id,Cate_name,Parent_id FROM category 
+  	</select>
+  	
+  	<select id="getParentCate" resultMap="CateSelectMap">
+  		SELECT Cate_id,Cate_name,Parent_id FROM category
+  		WHERE Parent_id=0
+  	</select>
+  	
+  	<select id="getChildCate" resultMap="CateSelectMap">
+  		SELECT Cate_id,Cate_name,Parent_id FROM category
+  		 WHERE Parent_id!=0
+  	</select>
+  	
+  	<select id="getCategoryList" resultType="hashmap">
+  	 	SELECT cate.Cate_id category_id,cate.Cate_name category_name,cate.Parent_id parent_id,parent.Cate_name parent_name
+		FROM category as cate
+		LEFT OUTER JOIN category as parent
+		ON cate.Parent_id = parent.Cate_id
+		ORDER BY cate.Cate_id
+  	 </select>
+  	
+  	<insert id="insertParentCate" parameterType="category">
+  		INSERT INTO category (Cate_name)
+  		VALUES(#{category_name})
+  	</insert>
+  	<insert id="insertChildCate" parameterType="category">
+  		INSERT INTO category (Cate_name,Parent_id)
+  		VALUES(#{category_name},#{parent_id})
+  	</insert>
+  	
+  	<select id="selectOneCate" parameterType="int" resultMap="CateSelectMap">
+  		SELECT Cate_id,Cate_name,Parent_id 
+  		FROM category
+  		WHERE Cate_id=#{value}
+  	</select>
+ 	
+ 	<update id="modifyParentCate" parameterType="category">
+ 		UPDATE category SET Cate_name=#{name}
+ 		WHERE Cate_id=#{category_id}
+ 	</update>
+ 	<update id="modifyChildCate" parameterType="category">
+ 		UPDATE category SET Cate_name=#{name},Parent_id=#{parent_id}
+ 		WHERE Cate_id=#{category_id}
+ 	</update>
+ 	
+ 	<delete id="deleteParentCate" parameterType="category">
+ 		DELETE FROM category
+ 		WHERE Cate_id=#{category_id}
+ 	</delete>
+  	
+ 
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="ProductControlMapper">
+
+<resultMap id="ProductSelectMap" type="product">
+		<result property="product_id" column="Product_id" jdbcType="INTEGER" />
+  		<result property="category_id" column="Category_id" jdbcType="INTEGER" />
+  		<result property="supplier_id" column="Supplier_id" jdbcType="INTEGER"/>
+  		<result property="product_name" column="Product_name" jdbcType="VARCHAR"/>
+   		<result property="product_detailshort" column="Product_detailshort" jdbcType="VARCHAR"/>
+  		<result property="product_detailfull" column="Product_detailfull" jdbcType="VARCHAR"/>
+  		<result property="product_importprice" column="Product_importprice" jdbcType="INTEGER"/>
+  		<result property="product_saleprice" column="Product_saleprice" jdbcType="INTEGER"/>
+  		<result property="product_status" column="Product_status" jdbcType="VARCHAR"/>
+  		<result property="date_added" column="Date_added" jdbcType="DATE"/>
+  		<result property="last_modified" column="Last_modified" jdbcType="DATE"/>
+  
+  	</resultMap>
+  	<select id="getProductList" resultMap="ProductSelectMap">
+  		SELECT Product_id,Category_id,Supplier_id,Product_name
+  		,Product_detailshort,Product_detailfull,Product_importprice,
+  		Product_saleprice,Product_status,Date_added,Last_modified 
+  		FROM product 
+  	</select>
+  	<select id="getProductDetailByID" parameterType="int" resultMap="ProductSelectMap" >
+  		SELECT Product_id,Category_id,Supplier_id,Product_name
+  		,Product_detailshort,Product_detailfull,Product_importprice,
+  		Product_saleprice,Product_status,Date_added,Last_modified 
+  		FROM product 
+  		WHERE Product_id=#{product_id}
+  	</select>
+  	<select id="getProductDetailList" resultType="hashmap">
+  	 	SELECT  prod.Product_id ID,cate.Cate_name Category,supp.Supplier_name Supplier,
+  	 			prod.Product_name ProductName,
+				prod.Product_detailshort ShortDetail,
+				prod.Product_detailfull FullDetail,prod.Product_importprice ImportPrice,
+				prod.Product_saleprice SalePrice,prod.Product_status Status,
+				prod.Date_added Created,prod.Last_modified
+		FROM    product as prod,supplier as supp, category as cate
+		WHERE prod.Category_id = cate.Cate_id 
+		AND prod.Supplier_id = supp.Supplier_id
+  	 </select>  
+
+  	
+  	
+  	<insert id="insertProduct" parameterType="product">
+  		INSERT INTO product 
+  		(Category_id,Supplier_id,Product_name,
+  		Product_detailshort,Product_detailfull,Product_importprice,
+  		Product_saleprice,Product_status,Date_added,Last_modified)
+  		VALUES
+  		(#{category_id},#{supplier_id},#{product_name},#{product_detailshort}
+  		,#{product_detailfull},#{product_importprice},#{product_saleprice}
+  		,#{product_status},CURDATE(),CURDATE())
+  	</insert>
+  
+  	
+  	<select id="selectOneProduct" parameterType="int" resultMap="ProductSelectMap">
+  		SELECT Product_id,Category_id,Supplier_id,Product_name
+  		,Product_detailshort,Product_detailfull,Product_importprice,
+  		Product_saleprice,Product_status,Date_added,Last_modified
+  		FROM product
+  		WHERE Product_id=#{value}
+  	</select>
+ 	
+ 	<update id="modifyProduct" parameterType="product">
+ 		UPDATE product SET 
+ 		Category_id=#{cate_id},
+ 		Supplier_id=#{supp_id},
+ 		Product_name=#{product_name}, 	
+ 		Product_detailshort=#{detail_short},
+ 		Product_detailfull=#{detail_full},
+ 		Product_importprice=#{import_price},
+ 		Product_saleprice=#{sale_price},
+ 		Product_status=#{status},
+ 		Date_added=#{date_added},
+ 		Last_modified=#{last_modified}
+ 		WHERE Product_id=#{product_id}
+ 	</update>
+ 
+ 	
+ 	<delete id="deleteProduct" parameterType="product">
+ 		DELETE FROM product
+ 		WHERE Product_id=#{product_id}
+ 	</delete>
+  	
+ 
+</mapper>
